@@ -61,3 +61,73 @@ we covered:
 - how variables run in scrip & child process
 - how to create environment variables from variables
 - how to make persistent variables that last between logons. 
+
+# Bash Commands (H/W)
+
+## Wildcards:
+- `*` is like 'any'
+```bash
+$ ls
+$ ls s*
+```
+
+- `?` When you know total number of characters
+```bash
+$ ls
+$ ls ???pic.PNG
+```
+- [] to specify a range
+```bash
+$ ls
+$ ls [p-z0-9]*.*
+```
+- Grep searches the input files for lines containing a match to a given pattern list
+```bash
+grep [yf] /etc/group
+> In the example, all the lines containing either a "y" or "f" character are displayed.
+```
+- Steams, piping
+    - A Linux stream is data traveling in a Linux shell from one process to another through a pipe, or from one file to another as a redirect.
+
+    - A pipe is a form of redirection (transfer of standard output to some other destination) that is used in Linux and other Unix-like operating systems to send the output of one command/program/process to another command/program/process for further processing.
+
+    - ```bash
+      ls -l | sed -e "s/[aeio]/u/g"   
+      > first the command ls -l is executed
+      > and its output, instead of being printed, is sent (piped) to the sed program
+      > which in turn, prints what it has to.
+      ```
+    - in general you can do:
+    ```bash
+    command_1 | command_2 | command_3 | .... | command_N
+    ```
+- Grep and ps aux, using piping 
+    - process status
+    - grep can be used to filter
+
+    - aux:
+    ```bash 
+    a:- This option prints the running processes from all users.
+
+    u:- This option shows user or owner column in output.
+
+    x:- This option prints the processes those have not been executed from the terminal.
+    ```
+    - Collectively the options "aux" print all the running process in system regardless from where they have been executed.
+- Start Process and Send to Background
+    - All commands up to this point have been run in the foreground. When you run a command in the foreground, the shell waits for it to finish before displaying another prompt and allowing you to continue. When you run a command in the background, you do not have to wait for the command to finish before running another command.
+    ```bash
+    ls -l | echo &
+    > [1] 1640
+    ```
+    pipeline that sends the output of ls to echo, which sends it to the printer.
+    - The [1] following the command line indicates that the shell has assigned job number 1 to this job.
+
+- Find the process 
+    - `ps` can be used to find the PPID of any process, in the case above the PPID is 1640. 
+    - ps will only find processes that are running
+    ![](example1.png)
+- Kill the process that is in the background 
+    - You need to find the PID number of the process you want to kill, e.g we vagrant destroy
+    - ![](example2.png)
+    - ![](example3.png)
